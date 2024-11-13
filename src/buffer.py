@@ -16,11 +16,9 @@ class SharedBuffer:
 
         # Acquire buffer lock to insert an item
         self.semaphore.acquire()
-        try:
-            self.buffer.put(item)
-            print(f"{current_thread().name} inserted {item}")
-        finally:
-            self.semaphore.release()
+        self.buffer.put(item)
+        print(f"{current_thread().name} inserted {item}")
+        self.semaphore.release()
 
         # Notify consumers that there is now an item in the buffer
         with self.not_empty:
@@ -36,11 +34,9 @@ class SharedBuffer:
 
         # Acquire buffer lock to remove an item
         self.semaphore.acquire()
-        try:
-            item = self.buffer.get(timeout=0.5)
-            print(f"{current_thread().name} removed {item}")
-        finally:
-            self.semaphore.release()
+        item = self.buffer.get(timeout=0.5)
+        print(f"{current_thread().name} removed {item}")
+        self.semaphore.release()
 
         # Notify producers that there is now space in the buffer
         with self.not_full:
