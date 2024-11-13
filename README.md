@@ -1,9 +1,11 @@
 # The producer-consumer problem: A solution using semaphores and condition variables
 
-## About 
+## About
+
 This project implements a solution to the well-known [producer-consumer](https://en.wikipedia.org/wiki/Producer–consumer_problem) problem using a semaphore and condition variables for synchronization. The condition variables allows for condition-based synchronization: threads can be suspended or notified for resuming execution under certain conditions.
 
 ## The producer-consumer problem
+
 The producer-consumer problem refers to a data area (a bounded buffer) shared by two types of processes, producers and consumers. Producers generate and insert new elements into the shared buffer while consumers remove and consume elements from the shared buffer. The following constraints must be also satisfied:
 
 * Only one operation (insertion or removal of elements into/from the buffer) can be performed at a time
@@ -14,6 +16,7 @@ The producer-consumer problem refers to a data area (a bounded buffer) shared by
 This solution to the problem consists in implementing the insertion and removal operations as synchronized methods, thereby ensuring their execution under mutual exclusion. While the current size of the buffer is equal to the established capacity, producer threads should be suspended. If it is possible to add a new element to the buffer, then a consumer thread eventually suspended should be notified to resume execution. On the other hand, while the current size of the buffer is equal to zero, consumer threads should be suspended. If it is possible to remove an element from the buffer, then a producer thread eventually suspended should be notified to resume execution.
 
 ## Repository structure
+
 Source code in this repository is organized as follows:
 
 ```
