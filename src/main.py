@@ -5,7 +5,7 @@ from producer import Producer
 capacity = 3
 num_threads = 5
 
-buffer = SharedBuffer(capacity, num_threads)
+buffer = SharedBuffer(capacity)
 
 producers = []
 consumers = []
@@ -17,13 +17,14 @@ for i in range(num_threads):
 
 for i in range(num_threads):
     producers[i].start()
+
 for i in range(num_threads):
     consumers[i].start()
 
 for i in range(num_threads):
     producers[i].join()
+
 for i in range(num_threads):
     consumers[i].join()
 
-if buffer.is_done():
-    print("No more production or consumption.")
+print("No more production or consumption.")
