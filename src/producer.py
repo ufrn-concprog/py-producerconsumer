@@ -1,6 +1,6 @@
 """Producer thread implementation for the producer-consumer example."""
 
-from buffer import SharedBuffer
+from .buffer import SharedBuffer
 from random import randint
 from threading import Thread
 

@@ -1,6 +1,6 @@
 """Consumer thread implementation for the producer-consumer example."""
 
-from buffer import SharedBuffer
+from .buffer import SharedBuffer
 from threading import Thread
 
 class Consumer(Thread):

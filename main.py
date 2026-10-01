@@ -1,8 +1,8 @@
 """Run a producer-consumer demonstration with five producer-consumer pairs."""
 
-from buffer import SharedBuffer
-from consumer import Consumer
-from producer import Producer
+from src.buffer import SharedBuffer
+from src.consumer import Consumer
+from src.producer import Producer
 
 capacity = 3
 num_threads = 5
