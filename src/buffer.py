@@ -17,9 +17,9 @@ class SharedBuffer:
     def __init__(self, capacity):
         """Initialize an empty buffer with the requested capacity."""
         self.buffer = Queue(maxsize=capacity)
-        self.semaphore = Semaphore()
-        self.not_full = Condition()     # Condition variable for buffer not full
-        self.not_empty = Condition()    # Condition variable for buffer not empty
+        self.semaphore = Semaphore(1)
+        self.not_full = Condition()
+        self.not_empty = Condition()
 
     def insert(self, item):
         """Insert ``item``, waiting until space is available.
@@ -28,35 +28,40 @@ class SharedBuffer:
             item: Value to append to the buffer.
         """
         with self.not_full:
-            while self.buffer.full():
+            while True:
+                self.semaphore.acquire()
+                if not self.buffer.full():
+                    try:
+                        self.buffer.put_nowait(item)
+                    finally:
+                        self.semaphore.release()
+                    break
+                self.semaphore.release()
                 print(f"Buffer is full. {current_thread().name} suspended.")
                 self.not_full.wait()
 
-        # Acquire buffer lock to insert an item
-        self.semaphore.acquire()
-        self.buffer.put(item)
-        print(f"{current_thread().name} inserted {item}")
-        self.semaphore.release()
+            print(f"{current_thread().name} inserted {item}")
 
-        # Notify consumers that there is now an item in the buffer
         with self.not_empty:
             self.not_empty.notify()
-            
 
     def remove(self):
         """Remove the oldest item, waiting if the buffer is empty."""
         with self.not_empty:
-            while self.buffer.empty():
+            while True:
+                self.semaphore.acquire()
+                if not self.buffer.empty():
+                    try:
+                        item = self.buffer.get_nowait()
+                    finally:
+                        self.semaphore.release()
+                    break
+                self.semaphore.release()
                 # Wait until there is an item in the buffer
                 print(f"Buffer is empty. {current_thread().name} suspended.")
                 self.not_empty.wait()
 
-        # Acquire buffer lock to remove an item
-        self.semaphore.acquire()
-        item = self.buffer.get(timeout=1)
-        print(f"{current_thread().name} removed {item}")
-        self.semaphore.release()
+            print(f"{current_thread().name} removed {item}")
 
-        # Notify producers that there is now space in the buffer
         with self.not_full:
             self.not_full.notify()

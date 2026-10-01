@@ -11,7 +11,7 @@ The producer-consumer problem uses a bounded buffer shared by producers and cons
 * Consumers wait while the buffer is empty.
 * Values are removed in the order they were inserted.
 
-`SharedBuffer` in `src/buffer.py` uses `queue.Queue(maxsize=capacity)` for bounded FIFO storage. A semaphore guards queue operations. Producers wait on a condition variable while the queue is full; after inserting a value, they notify a waiting consumer. Consumers wait while the queue is empty and notify a waiting producer after removing a value. In `src/main.py`, producer-consumer pairs each handle one value, and the program joins all threads before exiting.
+`SharedBuffer` in `src/buffer.py` uses `queue.Queue(maxsize=capacity)` for bounded FIFO storage. A binary semaphore guards each full/empty check and queue operation. Condition variables make producers wait while the buffer is full and consumers wait while it is empty; each operation notifies a thread waiting on the opposite condition. In `src/main.py`, producer-consumer pairs each handle one value, and the program joins all threads before exiting.
 
 ## 📂 Repository Structure
 
