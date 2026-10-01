@@ -32,7 +32,7 @@ class SharedBuffer:
                 self.semaphore.acquire()
                 if not self.buffer.full():
                     try:
-                        self.buffer.put_nowait(item)
+                        self.buffer.put(item)
                     finally:
                         self.semaphore.release()
                     break
@@ -52,7 +52,7 @@ class SharedBuffer:
                 self.semaphore.acquire()
                 if not self.buffer.empty():
                     try:
-                        item = self.buffer.get_nowait()
+                        item = self.buffer.get()
                     finally:
                         self.semaphore.release()
                     break
