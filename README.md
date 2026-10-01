@@ -1,4 +1,4 @@
-# Producer-Consumer Demonstration
+# The Producer-Consumer Problem: A Solution in Python
 
 This project demonstrates a bounded producer-consumer buffer using Python threads. A shared FIFO queue has a maximum capacity; producers add values and consumers remove them.
 
