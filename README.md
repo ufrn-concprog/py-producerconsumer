@@ -1,10 +1,14 @@
 # The producer-consumer problem: A solution using semaphores and condition variables in Python
 
+![Python](https://img.shields.io/badge/Python-3-green?logo=python)
+![Build](https://img.shields.io/badge/build-manual-lightgrey)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 ## About
 
 This project implements a solution to the well-known [producer-consumer](https://en.wikipedia.org/wiki/Producer–consumer_problem) problem using a semaphore and condition variables for synchronization. The condition variables enable condition-based synchronization, allowing threads to be suspended or notified for resumption of execution under specific conditions.
 
-## The producer-consumer problem
+## 📝 The Producer-Consumer Problem
 
 The producer-consumer problem refers to a data area (a bounded buffer) shared by two types of processes, producers and consumers. Producers generate and insert new elements into the shared buffer, while consumers remove and consume elements from it. The following constraints must also be satisfied:
 
@@ -19,50 +23,48 @@ This solution to the problem consists of implementing the insertion and removal 
 
 Source code in this repository is organized as follows:
 
-```
-+─py-producerconsumer                 ---> Project directory
-  ├─── doc                            ---> Directory with HTML pages resulting from the generated documentation
-  └─── src                            ---> Directory with source code files
-       └─── buffer.py                 ---> Implementation of the shared buffer and the synchronized operations on it
-       └─── consumer.py               ---> Implementation of the consumer thread
-       └─── main.py                   ---> Main program
-       └─── producer.py               ---> Implementation of the producer thread
+```text
++─py-producerconsumer
+  ├─── doc                            # Directory with HTML pages resulted from generated documentation
+  └─── src                            # Directory with source code files
+       └─── buffer.py                 # Implementation of the shared buffer and the synchronized operations on it
+       └─── consumer.py               # Implementation of the consumer thread
+       └─── main.py                   # Main program
+       └─── producer.py               # Implementation of the producer thread
     
 ```
 
-## Requirements
+## 🚀 Getting Started
 
-For compiling and executing the program, the following elements must be properly installed on the development environment:
+### ✅ Prerequisites
 
-* [Git](https://git-scm.com), as control version system
-* [Python 3+](https://www.python.org)
-* [pdoc](https://pdoc.dev), for automatic documentation generation
+* Python 3
+* A terminal or IDE
 
-## Download, compilation, and execution
+The program uses only Python's standard library, so no additional packages are required.
 
-In the operating system’s terminal, insert the following commands to download the implementation from this Git repository and navigate to the resulting directory:
+### ▶️ Running
 
-```bash
- # Download from the Git repository
- git clone https://github.com/ufrn-concprog/py-producerconsumer
- 
- # Navigation to the directory
- cd py-producerconsumer
-```
-
-To run the program, insert the following command in the operating system's terminal:
+From the project root, run:
 
 ```bash
-python3 src/main.py
+python3 main.py
 ```
 
-## Automatic generation
+## 📚 Generate Documentation
 
-The generation and visualization of documentation is provided by [pdoc](https://pdoc.dev). To render documentation as HTML pages, insert the following command in the operating system's terminal:
+The Python modules include docstrings for documentation tools such as [pdoc](https://pdoc.dev). Install pdoc and generate HTML documentation from the project root with:
 
 ```bash
-pdoc ./src -o ./doc
+python3 -m pip install pdoc
+python3 -m pdoc -o doc main src.job src.printingqueue
 ```
+
+## 🤝 Contributing
+
+Contributions are welcome! Fork this repository and submit a pull request 🚀
+
+## 📜 License
 
 This will generate documentation for all source code files within the [`src`](src) directory into the [`doc`](doc) directory. It is also possible to render documentation live with the command
 
@@ -71,3 +73,4 @@ pdoc ./src
 ```
 
 This command will result in opening a window in the browser running `pdoc` at a localhost server. In this case, the documentation pages will be automatically reloaded whenever changes are made to the source code.
+This project is licensed under the [MIT License](LICENSE).
