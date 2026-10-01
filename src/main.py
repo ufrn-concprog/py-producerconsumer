@@ -1,3 +1,5 @@
+"""Run a producer-consumer demonstration with five producer-consumer pairs."""
+
 from buffer import SharedBuffer
 from consumer import Consumer
 from producer import Producer
