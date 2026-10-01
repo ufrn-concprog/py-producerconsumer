@@ -28,11 +28,13 @@ Source code in this repository is organized as follows:
     
 ```
 
-## Requirements
+## 🚀 Getting Started
+
+### ✅ Prerequisites
 
 Python 3 is required. The program uses only the Python standard library.
 
-## Run
+### ▶️ Running
 
 From the repository root:
 
